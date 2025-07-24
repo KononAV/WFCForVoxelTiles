@@ -23,11 +23,7 @@ public class VoxelTile : MonoBehaviour
    public byte[] ColorsLeft;
    public byte[] ColorsBack;
 
-   //private void Start()
-   // {
-   //     CalculateSidesColors();
-   // }
-
+ 
     public void CalculateSidesColors()
     {
         
@@ -74,26 +70,6 @@ public class VoxelTile : MonoBehaviour
         ColorsBack = colorsBackNew;
     }
 
-   /* private void OnDrawGizmos()
-    {
-        ColorsRight = new byte[TileSideVoxels * TileSideVoxels];
-        ColorsForward = new byte[TileSideVoxels * TileSideVoxels];
-        ColorsLeft = new byte[TileSideVoxels * TileSideVoxels];
-        ColorsBack = new byte[TileSideVoxels * TileSideVoxels];
-
-        for (int y = 0; y < 2; y++)
-        {
-            for (int i = 0; i < TileSideVoxels; i++)
-            {
-                *//* ColorsRight[y * TileSideVoxels + i] = GetVoxelColor(y, i, Direction.Back); ;
-                 *//*
-                ColorsForward[y * TileSideVoxels + i] = GetVoxelColor(y, i, Direction.Right);
-                //ColorsLeft[y * TileSideVoxels + i] = GetVoxelColor(y, i, Direction.Forward);
-                //ColorsBack[y * TileSideVoxels + i] = GetVoxelColor(y, i, Direction.Left);
-            }
-        }
-    }*/
-
     private byte GetVoxelColor(int verticalLayer, int horizontalOffset, Direction direction)
     {
         var meshCollider = GetComponentInChildren<MeshCollider>();
@@ -135,14 +111,12 @@ public class VoxelTile : MonoBehaviour
 
         rayStart.y = meshCollider.bounds.min.y + half + verticalLayer * vox;
 
-        Debug.DrawRay(rayStart, rayDir * .1f, Color.blue, 200f);
+        //Debug.DrawRay(rayStart, rayDir * .1f, Color.blue, 200f);
 
         if (Physics.Raycast(new Ray(rayStart, rayDir), out RaycastHit hit, vox))
         {
             byte colorIndex = (byte) (hit.textureCoord.x * 256);
 
-            if (colorIndex == 0) Debug.LogWarning("Found color 0 in mesh palette, this can cause conflicts");
-            Debug.Log(colorIndex);
             return colorIndex;
         }
 

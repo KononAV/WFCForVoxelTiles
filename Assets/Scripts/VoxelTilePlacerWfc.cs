@@ -25,32 +25,30 @@ public class VoxelTilePlacerWfc : MonoBehaviour
         int countBeforeAdding = TilePrefabs.Count;
         for (int i = 0; i < countBeforeAdding; i++)
         {
-            VoxelTile baseTile = TilePrefabs[i];
-            switch (baseTile.Rotation)
+            VoxelTile clone = null;
+            switch (TilePrefabs[i].Rotation)
             {
                 case VoxelTile.RotationType.OnlyRotation:
                     break;
 
                 case VoxelTile.RotationType.TwoRotations:
-                    baseTile.Weight = Mathf.Max(1, baseTile.Weight / 2);
+                    TilePrefabs[i].Weight = Mathf.Max(1, TilePrefabs[i].Weight / 2);
 
-                    VoxelTile clone1 = Instantiate(baseTile);
-                    clone1.Rotate90();
-                    clone1.name = baseTile.name + "_Rot90";
-                    TilePrefabs.Add(clone1);
+                    clone = Instantiate(TilePrefabs[i]);
+                    clone.Rotate90();
+                    TilePrefabs.Add(clone);
                     break;
 
                 case VoxelTile.RotationType.FourRotations:
-                    baseTile.Weight = Mathf.Max(1, baseTile.Weight / 4);
+                    TilePrefabs[i].Weight = Mathf.Max(1, TilePrefabs[i].Weight / 4);
 
                     for (int r = 1; r <= 3; r++)
                     {
-                        VoxelTile clone = Instantiate(baseTile);
+                        clone = Instantiate(TilePrefabs[i]);
                         for (int rot = 0; rot < r; rot++)
                         {
                             clone.Rotate90();
                         }
-                        clone.name = baseTile.name + "_Rot" + (90 * r);
                         TilePrefabs.Add(clone);
                     }
                     break;
@@ -73,7 +71,7 @@ public class VoxelTilePlacerWfc : MonoBehaviour
                 VoxelTile tile = spawnedTiles[i, j];
                 if (tile != null)
                 {
-                    Instantiate(tile.gameObject, new Vector3(i, 0, j), tile.transform.rotation);
+                    Instantiate(tile.gameObject, new Vector3(i*.8f, 0, j * .8f), tile.transform.rotation);
                 }
                 yield return new WaitForSeconds(0.01f);
             }
@@ -86,15 +84,13 @@ public class VoxelTilePlacerWfc : MonoBehaviour
         spawnedTiles = new VoxelTile[MapSize.x, MapSize.y];
         tilesControl = new List<VoxelTile>();
 
-        Stack<Vector2Int> placedTiles = new Stack<Vector2Int>();
         int i = 1, j = 1;
         int iterations = 0;
 
         Vector2Int current = new Vector2Int(i, j);
         spawnedTiles[i, j] = TilePrefabs[UnityEngine.Random.Range(0, TilePrefabs.Count)];
-        placedTiles.Push(current);
 
-        while (placedTiles.Count < (MapSize.x ) * (MapSize.y ))
+        while (i*j <= (MapSize.x ) * (MapSize.y ))
         {
             if (iterations++ > 10000)
             {
@@ -146,10 +142,9 @@ public class VoxelTilePlacerWfc : MonoBehaviour
 
             spawnedTiles[i, j] = newTile;
             tilesControl.Add(newTile);
-            placedTiles.Push(current);
         }
 
-        Debug.Log("Generation complete. Total placed tiles: " + placedTiles.Count);
+        Debug.Log("Generation complete. Total placed tiles: " + spawnedTiles.Length);
     }
 
 
@@ -157,12 +152,11 @@ public class VoxelTilePlacerWfc : MonoBehaviour
     {
         Debug.LogWarning($"[BackTrack] Starting at ({i}, {j})");
 
-        int stepsToBack = 5;
+        int stepsToBack = MapSize.x;
 
         while (stepsToBack > 0)
         {
             spawnedTiles[i, j] = null;
-            Debug.Log($"[BackTrack] Cleared tile at ({i}, {j})");
             stepsToBack--;
 
             j--;
@@ -176,12 +170,10 @@ public class VoxelTilePlacerWfc : MonoBehaviour
             
             if (i < 1)
             {
-                Debug.LogError("[BackTrack] Reached beginning of the map. Cannot go further back.");
                 return (1, 1); 
             }
         }
 
-        Debug.Log($"[BackTrack] New position: ({i}, {j})");
         return (i, j);
     }
 
