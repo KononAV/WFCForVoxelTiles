@@ -1,10 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
-public class VoxelTile : MonoBehaviour
+public class VoxelTile : ReplaceableObjects
 {
     public float VoxelSize = 0.1f;
     public int TileSideVoxels = 8;
+    public Renderer Renderer;
+
+    public bool IsReplaceable = true;
+    public bool CanPlaceBuilding = false;
+
+
 
     [Range(1, 100)]
     public int Weight = 50;
@@ -23,7 +29,15 @@ public class VoxelTile : MonoBehaviour
    public byte[] ColorsLeft;
    public byte[] ColorsBack;
 
- 
+
+    private void Start()
+    {
+        Renderer = GetComponentInChildren<Renderer>(); 
+    }
+
+
+    
+
     public void CalculateSidesColors()
     {
         
@@ -105,8 +119,7 @@ public class VoxelTile : MonoBehaviour
         }
         else
         {
-            throw new ArgumentException("Wrong direction value, should be Direction.left/right/back/forward",
-                nameof(direction));
+            throw new ArgumentException("Wrong direction value", nameof(direction));
         }
 
         rayStart.y = meshCollider.bounds.min.y + half + verticalLayer * vox;
@@ -121,5 +134,12 @@ public class VoxelTile : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public override void SetTransparent(bool avaliable) =>
+        Renderer.material.color = avaliable ? Color.green : Color.red;
+    public override void SetNormal()
+    {
+        Renderer.material.color = Color.white;
     }
 }

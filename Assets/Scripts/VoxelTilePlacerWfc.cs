@@ -13,6 +13,8 @@ public class VoxelTilePlacerWfc : MonoBehaviour
     public VoxelTile[,] spawnedTiles;
     public List<VoxelTile> tilesControl;
 
+    public Canvas InterfaceCanvas;
+
     private void Start()
     {
         spawnedTiles = new VoxelTile[MapSize.x, MapSize.y];
@@ -71,11 +73,13 @@ public class VoxelTilePlacerWfc : MonoBehaviour
                 VoxelTile tile = spawnedTiles[i, j];
                 if (tile != null)
                 {
-                    Instantiate(tile.gameObject, new Vector3(i*.8f, 0, j * .8f), tile.transform.rotation);
+                    Instantiate(tile.gameObject, new Vector3((i-1)*.8f, 0, (j-1) * .8f), tile.transform.rotation);
                 }
-                yield return new WaitForSeconds(0.01f);
+                
+                yield return new WaitForSeconds(0.00f);
             }
         }
+        //Instantiate(InterfaceCanvas);
     }
 
 
