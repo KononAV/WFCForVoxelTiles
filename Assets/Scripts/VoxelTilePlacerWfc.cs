@@ -11,9 +11,9 @@ public class VoxelTilePlacerWfc : MonoBehaviour
     public Vector2Int MapSize = new Vector2Int(10, 10);
 
     public VoxelTile[,] spawnedTiles;
-    public List<VoxelTile> tilesControl;
 
-    public Canvas InterfaceCanvas;
+    public VoxelTile[,] trueSpawnedTiles;
+
 
     private void Start()
     {
@@ -66,6 +66,7 @@ public class VoxelTilePlacerWfc : MonoBehaviour
 
     private IEnumerator PlaceTiles()
     {
+        trueSpawnedTiles = new VoxelTile[10, 10];
         for (int i = 0; i < spawnedTiles.GetLength(0); i++)
         {
             for (int j = 0; j < spawnedTiles.GetLength(1); j++)
@@ -73,20 +74,22 @@ public class VoxelTilePlacerWfc : MonoBehaviour
                 VoxelTile tile = spawnedTiles[i, j];
                 if (tile != null)
                 {
-                    Instantiate(tile.gameObject, new Vector3((i-1)*.8f, 0, (j-1) * .8f), tile.transform.rotation);
+                    trueSpawnedTiles[i,j] = 
+                        Instantiate(tile.gameObject, new Vector3((i-1)*.8f, 0, (j-1) * .8f), tile.transform.rotation)
+                        .GetComponent<VoxelTile>();;
+                    spawnedTiles[i,j]=null;
                 }
                 
                 yield return new WaitForSeconds(0.00f);
             }
         }
-        //Instantiate(InterfaceCanvas);
+        
     }
 
 
     public void Generate()
     {
         spawnedTiles = new VoxelTile[MapSize.x, MapSize.y];
-        tilesControl = new List<VoxelTile>();
 
         int i = 1, j = 1;
         int iterations = 0;
@@ -145,7 +148,6 @@ public class VoxelTilePlacerWfc : MonoBehaviour
             }
 
             spawnedTiles[i, j] = newTile;
-            tilesControl.Add(newTile);
         }
 
         Debug.Log("Generation complete. Total placed tiles: " + spawnedTiles.Length);

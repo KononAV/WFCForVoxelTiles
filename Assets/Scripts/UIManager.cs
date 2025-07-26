@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private TileGridPresenter _presenter;
+
+    public void SetPresenter(TileGridPresenter presenter)
     {
-        
+        _presenter = presenter;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDeleteButtonClicked()
     {
-        
+        _presenter.DeleteButton();
+    }
+
+    public void OnPlaceBuildingClicked(ReplaceableObjects obj)
+    {
+        _presenter.StartPlacingBuilding(obj);
     }
 }

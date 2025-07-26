@@ -269,6 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 223039715}
+  - component: {fileID: 223039716}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -291,6 +292,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &223039716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 223039714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f22f41a860e2c498ffff2bc2b8543d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _voxelPlacer: {fileID: 0}
+  _uiManager: {fileID: 0}
 --- !u!1 &234179593
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,6 +621,50 @@ MonoBehaviour:
   zoomSpeed: 10
   minZoom: 5
   maxZoom: 50
+--- !u!1 &341193446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341193448}
+  - component: {fileID: 341193447}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &341193447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341193446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7b22a35cf55ce4c998ea872274e90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &341193448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341193446}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 383.10498, y: 146.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &367793643 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1784205446203856348, guid: d27beb4d1b588f247ba08b626dabc80b, type: 3}
@@ -1048,7 +1107,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 985822147}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BuildingGrid, Assembly-CSharp
         m_MethodName: StartPlacingBuilding
         m_Mode: 2
@@ -1268,51 +1327,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c017c66584c5944daf1867056e006aa, type: 3}
---- !u!1 &985822146
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 985822148}
-  - component: {fileID: 985822147}
-  m_Layer: 0
-  m_Name: Plane
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &985822147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985822146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b418ae6f3187e7d4fac456d7c76d7a17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GridSize: {x: 7, y: 7}
---- !u!4 &985822148
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985822146}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 515.8537, y: 89.78595, z: 878.33716}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &986484341 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1281829191009401726, guid: f6b18d27389d03f4386b4863e76f6ea5, type: 3}
@@ -1757,7 +1771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 105, y: -121}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1516686497
@@ -2346,12 +2360,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6958492086473670379, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6992778132562134196, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 985822147}
+      objectReference: {fileID: 0}
     - target: {fileID: 6992778132562134196, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartPlacingBuilding
@@ -2363,10 +2377,14 @@ PrefabInstance:
     - target: {fileID: 7231329693588921626, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 985822147}
+      objectReference: {fileID: 223039716}
     - target: {fileID: 7231329693588921626, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartPlacingBuilding
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231329693588921626, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7231329693588921626, guid: 2cc5931d2e6ab3945863ce945504e2f5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -3181,6 +3199,6 @@ SceneRoots:
   - {fileID: 1793372977}
   - {fileID: 1091651022}
   - {fileID: 329728991}
-  - {fileID: 985822148}
   - {fileID: 1904690267}
   - {fileID: 223039715}
+  - {fileID: 341193448}
