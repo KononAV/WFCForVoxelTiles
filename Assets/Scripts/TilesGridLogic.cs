@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
+using System;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TilesGridLogic//Model
 {
@@ -18,6 +21,11 @@ public class TilesGridLogic//Model
 
 
     private CancellationTokenSource _cancellationTokenSource;
+
+    public Action<Building, VoxelTile> ObjectInformationChanges;
+
+    public Action DeleteObject;
+
 
     private CancellationToken placingToken;
     private CancellationToken mouseToken;
@@ -37,12 +45,14 @@ public class TilesGridLogic//Model
     {
         StopPlacingBuilding(building);
         mouseDetecting = false;
-        flyingBuilding = Object.Instantiate(building);
+        flyingBuilding = UnityEngine.Object.Instantiate(building);
         buildPlacing = true;
         _cancellationTokenSource = new CancellationTokenSource();
         placingToken = _cancellationTokenSource.Token;
 
         _=FlyingBuildingSettings();
+
+        
     }
 
     private void StopPlacingBuilding(ReplaceableObjects building)
@@ -50,13 +60,15 @@ public class TilesGridLogic//Model
         buildPlacing=false;
         if (flyingBuilding != null) 
         { 
-            _cancellationTokenSource?.Cancel(); 
-            Object.Destroy(flyingBuilding.gameObject);
+            _cancellationTokenSource?.Cancel();
+            UnityEngine.Object.Destroy(flyingBuilding.gameObject);
         }
         
         
 
     }
+
+   
 
     private void StartMouseDetecting()
     {   
@@ -67,6 +79,8 @@ public class TilesGridLogic//Model
         _ = MouseDetection();
     }
 
+
+   
     private async UniTask FlyingBuildingSettings()
     {
         while (buildPlacing)
@@ -74,8 +88,10 @@ public class TilesGridLogic//Model
             Debug.Log("placing process");
             
             await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: placingToken);
-            
-            if (flyingBuilding == null) continue;
+
+           
+
+                    if (flyingBuilding == null) continue;
 
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             var groundPlane = new Plane(Vector3.up, Vector3.zero);
@@ -188,6 +204,7 @@ public class TilesGridLogic//Model
 
         flyingBuilding.SetNormal();
         flyingBuilding = null;
+
     }
 
     private Vector3 RoundToSize(Vector3 pos)
@@ -199,20 +216,7 @@ public class TilesGridLogic//Model
 
 
 
-    public void DeleteBuilding()
-    {
-        StopPlacingBuilding(flyingBuilding);
-
-        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        var groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-        if (groundPlane.Raycast(ray, out float hitDistance))
-        {
-            Vector3 worldPos = RoundToSize(ray.GetPoint(hitDistance));
-            Debug.Log(worldPos.x + " " + worldPos.z);
-
-        }
-    }
+  
 
    async public UniTaskVoid MouseDetection()
     {
@@ -220,9 +224,18 @@ public class TilesGridLogic//Model
         int preY=1;
         while (mouseDetecting) 
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: mouseToken); continue;
+            }
             //Debug.Log("mouse detecting process");
-
+            if (Input.GetMouseButtonDown(0))
+            {
+                //SelectedObjects = (null, null);
+                ObjectInformationChanges?.Invoke(null, null);
+            }
             await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken:mouseToken);
+
             var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             var groundPlane = new Plane(Vector3.up, Vector3.zero);
 
@@ -254,11 +267,38 @@ public class TilesGridLogic//Model
                 if (Input.GetMouseButton(0))
                 {
                     SelectedObjects = (spawnedGround[x+1, y + 1], grid[x,y]);
+                    ObjectInformationChanges?.Invoke(SelectedObjects.building, SelectedObjects.ground);
                     Debug.Log(SelectedObjects.ground?.name+ SelectedObjects.building?.name);
                 }
             }
         }
     }
+
+  
+
+
+    public void DeleteBuilding()
+    {
+        Debug.LogWarning("DELETING");
+        if (SelectedObjects.building == null) return;
+        for (int i = 0; i < grid.GetLength(0); i++) 
+        {
+            for(int j = 0; j < grid.GetLength(1); j++)
+            {
+                if (grid[i, j] == SelectedObjects.building)
+                {
+                    grid[i, j] = null;
+                }
+            }
+        
+        }
+        GameObject.Destroy(SelectedObjects.building.gameObject);
+
+
+        ObjectInformationChanges?.Invoke(SelectedObjects.building, SelectedObjects.ground);
+    }
+
+    
 
     /**//*private *//*void OnDrawGizmos()
     {
