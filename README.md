@@ -11,3 +11,5 @@ Implemented features:
 A project aimed at improving algorithm skills.
 
 Some algorithms based on [playlist](https://www.youtube.com/watch?v=bw1Pd-pz1pM&list=PLSpLbrgpaHDlY_Bn2A7MVb-6BmaCXx9_y)
+
+![Видео-без-названия-—-сделано-в-Clipchamp](https://github.com/user-attachments/assets/4bb8e318-b56c-4ba0-83cf-922a9e1d31ec)
