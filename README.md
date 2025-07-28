@@ -13,7 +13,7 @@ A project aimed at improving algorithm skills.
 Some algorithms based on [playlist](https://www.youtube.com/watch?v=bw1Pd-pz1pM&list=PLSpLbrgpaHDlY_Bn2A7MVb-6BmaCXx9_y)
 
 <img src="https://github.com/user-attachments/assets/4bb8e318-b56c-4ba0-83cf-922a9e1d31ec" alt="Видео-без-названия—сделано-в-Clipchamp" width="600"/>
-
+#
 <br/><br/>
 
 <img width="400" height="130" alt="Untitled-1" src="https://github.com/user-attachments/assets/c66d9ae6-5739-4c98-b39e-e531caf2e805" />
