@@ -16,8 +16,6 @@ Some algorithms based on [playlist](https://www.youtube.com/watch?v=bw1Pd-pz1pM&
 
 <br/><br/>
 
-<img width="400" height="130" alt="image" src="https://github.com/user-attachments/assets/7a35af67-4066-4ceb-a821-49a87fbda96d" style="margin-bottom:20px;"/>
-
-
+<img width="400" height="130" alt="Untitled-1" src="https://github.com/user-attachments/assets/c66d9ae6-5739-4c98-b39e-e531caf2e805" />
 <img width="400" height="130" alt="image" src="https://github.com/user-attachments/assets/eb423ece-9d17-43e6-b16e-dde80f6bea29" />
 
