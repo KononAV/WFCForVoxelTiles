@@ -14,5 +14,11 @@ Some algorithms based on [playlist](https://www.youtube.com/watch?v=bw1Pd-pz1pM&
 
 <img src="https://github.com/user-attachments/assets/4bb8e318-b56c-4ba0-83cf-922a9e1d31ec" alt="Видео-без-названия—сделано-в-Clipchamp" width="600"/>
 
-<img width="400" height="155" alt="image" src="https://github.com/user-attachments/assets/7a35af67-4066-4ceb-a821-49a87fbda96d" />
+<br/><br/>
+
+<img width="400" height="155" alt="image" src="https://github.com/user-attachments/assets/7a35af67-4066-4ceb-a821-49a87fbda96d" style="margin-bottom:20px;"/>
+
+<br/>
+
 <img width="400" height="130" alt="image" src="https://github.com/user-attachments/assets/eb423ece-9d17-43e6-b16e-dde80f6bea29" />
+
